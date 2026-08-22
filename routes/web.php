@@ -8,4 +8,3 @@ Route::view('/', 'welcome')->name('home');
 Route::middleware('auth')->group(function () {
     Route::livewire('dashboard', Dashboard::class)->name('dashboard');
 });
-
