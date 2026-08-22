@@ -45,7 +45,7 @@
                 </a>
             @else
                 <a
-                    href="{{ route('home') }}"
+                    href="{{ route('dashboard') }}"
                     class="rounded-lg border border-transparent bg-cyan-600 px-4 py-2 text-sm font-medium text-white hover:bg-cyan-700 focus:bg-cyan-700 focus:outline-hidden dark:bg-cyan-500 dark:hover:bg-cyan-600"
                 >
                     Dashboard
@@ -91,7 +91,7 @@
                     >Get started</a>
                 @else
                     <a
-                        href="{{ route('home') }}"
+                        href="{{ route('dashboard') }}"
                         class="block rounded-lg bg-cyan-600 px-3 py-2 text-center text-sm font-medium text-white hover:bg-cyan-700 dark:bg-cyan-500 dark:hover:bg-cyan-600"
                     >Dashboard</a>
                 @endguest

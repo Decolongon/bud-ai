@@ -24,7 +24,7 @@
         </a>
     @else
         <a
-            href="{{ route('home') }}"
+            href="{{ route('dashboard') }}"
             class="rounded-lg border border-transparent bg-cyan-600 px-6 py-3 text-sm font-medium text-white hover:bg-cyan-700 dark:bg-cyan-500 dark:hover:bg-cyan-600"
         >
             Go to dashboard

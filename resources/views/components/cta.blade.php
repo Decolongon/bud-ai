@@ -12,7 +12,7 @@
         </a>
     @else
         <a
-            href="{{ route('home') }}"
+            href="{{ route('dashboard') }}"
             class="mt-8 inline-block rounded-lg bg-white px-8 py-3 text-sm font-semibold text-cyan-700 shadow-sm hover:bg-gray-50"
         >
             Open dashboard
