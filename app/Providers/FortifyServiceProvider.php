@@ -24,7 +24,8 @@ class FortifyServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        //
+        $this->configureLoginResponse();
+        $this->configureLogoutResoponse();
     }
 
     /**
@@ -35,8 +36,6 @@ class FortifyServiceProvider extends ServiceProvider
         $this->configureViews();
         $this->configureRateLimiter();
         $this->configureActionFortify();
-        $this->configureLoginResponse();
-        $this->configureLogoutResoponse();
     }
 
     private function configureViews(): void
@@ -82,6 +81,7 @@ class FortifyServiceProvider extends ServiceProvider
             public function toResponse($request)
             {
                 $request->session()->regenerate();
+
                 return redirect()->intended(route('dashboard'));
             }
         });
@@ -93,10 +93,11 @@ class FortifyServiceProvider extends ServiceProvider
         {
             public function toResponse($request)
             {
-               Auth::logout();
-               $request->session()->invalidate();
-               $request->session()->regenerateToken();
-               return redirect()->intended(route('home'));
+                Auth::logout();
+                $request->session()->invalidate();
+                $request->session()->regenerateToken();
+
+                return redirect()->intended(route('home'));
             }
         });
     }
