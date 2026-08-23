@@ -6,14 +6,7 @@
 
     <title>{{ $title ?? config('app.name') }}</title>
 
-    <script>
-        if (
-            localStorage.getItem('theme') === 'dark' ||
-            (!localStorage.getItem('theme') && window.matchMedia('(prefers-color-scheme: dark)').matches)
-        ) {
-            document.documentElement.classList.add('dark');
-        }
-    </script>
+    @include('components.theme-init')
 
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 
