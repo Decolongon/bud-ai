@@ -6,6 +6,8 @@
 
     <title>{{ $title ?? config('app.name') }}</title>
 
+    <link rel="icon" type="image/svg+xml" href="{{ asset('favicon.svg') }}" />
+
     @include('components.theme-init')
 
     @vite(['resources/css/app.css', 'resources/js/app.js'])

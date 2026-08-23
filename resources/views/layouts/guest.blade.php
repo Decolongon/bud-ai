@@ -6,6 +6,8 @@
 
     <title>@yield('title', config('app.name', 'Bud'))</title>
 
+    <link rel="icon" type="image/svg+xml" href="{{ asset('favicon.svg') }}" />
+
     @include('components.theme-init')
 
     @vite(['resources/css/app.css', 'resources/js/app.js'])
