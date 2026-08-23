@@ -1,14 +1,10 @@
-<!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-<head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+@extends('layouts.guest')
 
-    <title>{{ __('Welcome') }} - {{ config('app.name', 'Bud') }}</title>
+@section('title', __('Welcome').' - '.config('app.name', 'Bud'))
 
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
-</head>
-<body class="bg-white text-gray-800 dark:bg-gray-900 dark:text-gray-200">
+@section('body_class', 'bg-white text-gray-800 dark:bg-gray-900 dark:text-gray-200')
+
+@section('content')
     {{-- ===== Navigation ===== --}}
     <header class="sticky top-0 z-50 border-b border-gray-200 bg-white/80 backdrop-blur dark:border-gray-700 dark:bg-gray-900/80">
         <x-navigation />
@@ -56,5 +52,4 @@
     <footer class="border-t border-gray-200 py-10 dark:border-gray-700">
         <x-footer />
     </footer>
-</body>
-</html>
+@endsection
