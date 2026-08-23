@@ -31,6 +31,7 @@
     <div class="hidden items-center gap-x-3 md:flex">
         @if (Route::has('login'))
             @guest
+                <x-theme-toggle />
                 <a
                     href="{{ route('login') }}"
                     class="rounded-lg px-4 py-2 text-sm font-medium text-gray-800 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
@@ -55,7 +56,9 @@
     </div>
 
     {{-- Mobile menu --}}
-    <details class="relative md:hidden">
+    <div class="flex items-center gap-x-1 md:hidden">
+        <x-theme-toggle />
+        <details class="relative">
         <summary class="[&::-webkit-details-marker]:hidden flex cursor-pointer list-none items-center rounded-lg p-2 hover:bg-gray-100 dark:hover:bg-gray-700">
             <svg class="size-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
@@ -97,5 +100,6 @@
                 @endguest
             @endif
         </div>
-    </details>
+        </details>
+    </div>
 </nav>
