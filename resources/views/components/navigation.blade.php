@@ -59,47 +59,47 @@
     <div class="flex items-center gap-x-1 md:hidden">
         <x-theme-toggle />
         <details class="relative">
-        <summary class="[&::-webkit-details-marker]:hidden flex cursor-pointer list-none items-center rounded-lg p-2 hover:bg-gray-100 dark:hover:bg-gray-700">
-            <svg class="size-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
-            </svg>
-        </summary>
-        <div class="absolute end-0 mt-2 w-52 rounded-xl border border-gray-200 bg-white p-3 shadow-lg dark:border-gray-700 dark:bg-gray-800">
-            <a
-                href="#features"
-                class="block rounded-lg px-3 py-2 text-sm font-medium hover:bg-gray-100 dark:hover:bg-gray-700"
-            >Features</a>
-            <a
-                href="#how-it-works"
-                class="block rounded-lg px-3 py-2 text-sm font-medium hover:bg-gray-100 dark:hover:bg-gray-700"
-            >How it works</a>
-            <a
-                href="#testimonials"
-                class="block rounded-lg px-3 py-2 text-sm font-medium hover:bg-gray-100 dark:hover:bg-gray-700"
-            >Testimonials</a>
-            <a
-                href="#faq"
-                class="block rounded-lg px-3 py-2 text-sm font-medium hover:bg-gray-100 dark:hover:bg-gray-700"
-            >FAQ</a>
-            <hr class="my-2 border-gray-200 dark:border-gray-700" />
-            @if (Route::has('login'))
-                @guest
-                    <a
-                        href="{{ route('login') }}"
-                        class="block rounded-lg px-3 py-2 text-sm font-medium hover:bg-gray-100 dark:hover:bg-gray-700"
-                    >Sign in</a>
-                    <a
-                        href="{{ route('register') }}"
-                        class="mt-1 block rounded-lg bg-cyan-600 px-3 py-2 text-center text-sm font-medium text-white hover:bg-cyan-700 dark:bg-cyan-500 dark:hover:bg-cyan-600"
-                    >Get started</a>
-                @else
-                    <a
-                        href="{{ route('dashboard') }}"
-                        class="block rounded-lg bg-cyan-600 px-3 py-2 text-center text-sm font-medium text-white hover:bg-cyan-700 dark:bg-cyan-500 dark:hover:bg-cyan-600"
-                    >Dashboard</a>
-                @endguest
-            @endif
-        </div>
+            <summary class="[&::-webkit-details-marker]:hidden flex cursor-pointer list-none items-center rounded-lg p-2 hover:bg-gray-100 dark:hover:bg-gray-700">
+                <svg class="size-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+                </svg>
+            </summary>
+            <div class="absolute end-0 mt-2 w-52 rounded-xl border border-gray-200 bg-white p-3 shadow-lg dark:border-gray-700 dark:bg-gray-800">
+                <a
+                    href="#features"
+                    class="block rounded-lg px-3 py-2 text-sm font-medium hover:bg-gray-100 dark:hover:bg-gray-700"
+                >Features</a>
+                <a
+                    href="#how-it-works"
+                    class="block rounded-lg px-3 py-2 text-sm font-medium hover:bg-gray-100 dark:hover:bg-gray-700"
+                >How it works</a>
+                <a
+                    href="#testimonials"
+                    class="block rounded-lg px-3 py-2 text-sm font-medium hover:bg-gray-100 dark:hover:bg-gray-700"
+                >Testimonials</a>
+                <a
+                    href="#faq"
+                    class="block rounded-lg px-3 py-2 text-sm font-medium hover:bg-gray-100 dark:hover:bg-gray-700"
+                >FAQ</a>
+                <hr class="my-2 border-gray-200 dark:border-gray-700" />
+                @if (Route::has('login'))
+                    @guest
+                        <a
+                            href="{{ route('login') }}"
+                            class="block rounded-lg px-3 py-2 text-sm font-medium hover:bg-gray-100 dark:hover:bg-gray-700"
+                        >Sign in</a>
+                        <a
+                            href="{{ route('register') }}"
+                            class="mt-1 block rounded-lg bg-cyan-600 px-3 py-2 text-center text-sm font-medium text-white hover:bg-cyan-700 dark:bg-cyan-500 dark:hover:bg-cyan-600"
+                        >Get started</a>
+                    @else
+                        <a
+                            href="{{ route('dashboard') }}"
+                            class="block rounded-lg bg-cyan-600 px-3 py-2 text-center text-sm font-medium text-white hover:bg-cyan-700 dark:bg-cyan-500 dark:hover:bg-cyan-600"
+                        >Dashboard</a>
+                    @endguest
+                @endif
+            </div>
         </details>
     </div>
 </nav>

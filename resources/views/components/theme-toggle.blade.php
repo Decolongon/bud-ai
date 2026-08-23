@@ -1,11 +1,13 @@
 <button
     type="button"
-    {{ $attributes->merge([
-        'type' => 'button',
-        'data-theme-toggle' => true,
-        'aria-label' => 'Toggle dark mode',
-        'class' => 'flex size-9 items-center justify-center rounded-lg text-gray-600 hover:bg-gray-100 hover:text-gray-900 focus:outline-hidden focus-visible:ring-2 focus-visible:ring-cyan-500 dark:text-gray-300 dark:hover:bg-gray-700 dark:hover:text-white',
-    ]) }}
+    {{
+        $attributes->merge([
+            'type' => 'button',
+            'data-theme-toggle' => true,
+            'aria-label' => 'Toggle dark mode',
+            'class' => 'flex size-9 items-center justify-center rounded-lg text-gray-600 hover:bg-gray-100 hover:text-gray-900 focus:outline-hidden focus-visible:ring-2 focus-visible:ring-cyan-500 dark:text-gray-300 dark:hover:bg-gray-700 dark:hover:text-white',
+        ])
+    }}
 >
     {{-- Moon: shown in light mode, click switches to dark --}}
     <svg class="size-5 dark:hidden" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
