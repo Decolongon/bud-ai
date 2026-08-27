@@ -3,6 +3,8 @@
 namespace App\Livewire;
 
 use App\Services\DashboardService;
+use Illuminate\Support\Facades\Auth;
+use Livewire\Attributes\Computed;
 use Livewire\Component;
 
 class Dashboard extends Component
@@ -43,15 +45,30 @@ class Dashboard extends Component
     public array $messages = [];
 
     public string $message = '';
+
     protected DashboardService $service;
+
     public function boot(DashboardService $service)
     {
-       $this->service = $service;
+        $this->service = $service;
+    }
+
+    public function mount(DashboardService $service): void
+    {
+        $this->messages = $service->recentMessages();
     }
 
     public function send(): void
     {
-       
+        $prompt = trim($this->message);
+
+        if ($prompt === '') {
+            return;
+        }
+
+        $this->messages[] = ['from' => 'user', 'text' => $prompt];
+        $this->messages[] = ['from' => 'assistant', 'text' => $this->service->prompt($prompt)];
+        $this->message = '';
     }
 
     public function ask(int $index): void
@@ -82,6 +99,12 @@ class Dashboard extends Component
             'title' => $suggestion['title'],
             'sub' => $suggestion['sub'],
         ], self::SUGGESTIONS);
+    }
+
+    #[Computed]
+    public function conversation()
+    {
+        return Auth::user()->conversations()->latest()->get();
     }
 
     public function render()

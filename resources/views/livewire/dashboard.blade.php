@@ -117,7 +117,7 @@
 
             <span class="flex size-8 items-center justify-center rounded-full bg-cyan-600 text-xs font-bold text-white">{{ Auth::user()->initials() }}</span>
         </header>
-
+            
         {{-- Messages --}}
         <main class="flex-1 overflow-y-auto">
             @if (count($messages) === 0)
