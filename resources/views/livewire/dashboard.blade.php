@@ -64,14 +64,16 @@
 
         {{-- Chat history --}}
         <nav class="mt-4 flex-1 overflow-y-auto px-4 pb-4">
-            <p class="py-8 text-center text-xs text-gray-400 dark:text-gray-500">
-                No conversations yet
-            </p>
+            <p class="py-8 text-center text-xs text-gray-400 dark:text-gray-500">No conversations yet</p>
         </nav>
 
         {{-- User --}}
         <div class="shrink-0 border-t border-gray-200 p-3 dark:border-gray-700">
-            <div class="flex items-center gap-x-3 rounded-lg p-2 hover:bg-gray-100 dark:hover:bg-gray-700">
+            <div
+                class="flex items-center gap-x-3 rounded-lg p-2 hover:bg-gray-100 dark:hover:bg-gray-700"
+                wire:click="logout"
+                wire:confirm="Are you sure you want to logout?"
+            >
                 <span class="flex size-9 shrink-0 items-center justify-center rounded-full bg-cyan-600 text-xs font-bold text-white">{{ Auth::user()->initials() }}</span>
                 <div class="min-w-0 flex-1">
                     <p class="truncate text-sm font-semibold">{{ Auth::user()->name }}</p>
@@ -115,9 +117,13 @@
                 </span>
             </div>
 
-            <span class="flex size-8 items-center justify-center rounded-full bg-cyan-600 text-xs font-bold text-white">{{ Auth::user()->initials() }}</span>
+            <span
+                class="flex size-8 items-center justify-center rounded-full bg-cyan-600 text-xs font-bold text-white"
+                wire:click="logout"
+                wire:confirm="{{ __('Are you sure you want to logout?') }}"
+            >{{ Auth::user()->initials() }}</span>
         </header>
-            
+
         {{-- Messages --}}
         <main class="flex-1 overflow-y-auto">
             @if (count($messages) === 0)
@@ -129,7 +135,9 @@
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12Z" />
                             </svg>
                         </span>
-                        <h1 class="mt-4 text-2xl font-bold sm:text-3xl">Hi {{ \Illuminate\Support\Str::before(Auth::user()->name, ' ') }}, I'm Bud</h1>
+                        <h1 class="mt-4 text-2xl font-bold sm:text-3xl">
+                            Hi {{ \Illuminate\Support\Str::before(Auth::user()->name, ' ') }}, I'm Bud
+                        </h1>
                         <p class="mt-2 text-sm text-gray-600 sm:text-base dark:text-gray-300">
                             How are you feeling today?
                         </p>

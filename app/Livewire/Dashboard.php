@@ -4,6 +4,7 @@ namespace App\Livewire;
 
 use App\Services\DashboardService;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
 use Livewire\Attributes\Computed;
 use Livewire\Component;
 
@@ -105,6 +106,15 @@ class Dashboard extends Component
     public function conversation()
     {
         return Auth::user()->conversations()->latest()->get();
+    }
+
+    public function logout()
+    {
+        Auth::logout();
+        Session::invalidate();
+        Session::regenerate();
+
+        return $this->redirectIntended(route('home'));
     }
 
     public function render()
