@@ -47,6 +47,10 @@ class Dashboard extends Component
 
     public string $message = '';
 
+    public ?string $activeConversationId = null;
+
+    public string $search = '';
+
     protected DashboardService $service;
 
     public function boot(DashboardService $service)
@@ -54,9 +58,10 @@ class Dashboard extends Component
         $this->service = $service;
     }
 
-    public function mount(DashboardService $service): void
+    public function mount(): void
     {
-        $this->messages = $service->recentMessages();
+        $this->activeConversationId = $this->service->latestConversationId();
+        $this->messages = $this->service->recentMessages();
     }
 
     public function send(): void
@@ -68,8 +73,15 @@ class Dashboard extends Component
         }
 
         $this->messages[] = ['from' => 'user', 'text' => $prompt];
-        $this->messages[] = ['from' => 'assistant', 'text' => $this->service->prompt($prompt)];
+        $this->messages[] = ['from' => 'assistant', 'text' => $this->service->promptInConversation($prompt, $this->activeConversationId)];
         $this->message = '';
+
+        // If this was a new chat, capture the newly created conversation id.
+        if ($this->activeConversationId === null) {
+            $this->activeConversationId = $this->service->latestConversationId();
+        }
+
+        unset($this->conversations, $this->conversation);
     }
 
     public function ask(int $index): void
@@ -88,6 +100,21 @@ class Dashboard extends Component
     {
         $this->messages = [];
         $this->message = '';
+        $this->activeConversationId = null;
+    }
+
+    public function selectConversation(string $conversationId): void
+    {
+        $user = Auth::user();
+
+        $conversation = $user->conversations()->where('id', $conversationId)->first();
+
+        if ($conversation === null) {
+            return;
+        }
+
+        $this->activeConversationId = $conversation->id;
+        $this->messages = $this->service->messagesForConversation($conversation->id);
     }
 
     /**
@@ -103,9 +130,23 @@ class Dashboard extends Component
     }
 
     #[Computed]
+    public function conversations()
+    {
+        return Auth::user()->conversations()
+            ->when(trim($this->search) !== '', function ($query): void {
+                $query->where('title', 'like', '%'.trim($this->search).'%');
+            })
+            ->latest('updated_at')
+            ->get();
+    }
+
+    /**
+     * Kept for backward-compatibility if referenced elsewhere.
+     */
+    #[Computed]
     public function conversation()
     {
-        return Auth::user()->conversations()->latest()->get();
+        return $this->conversations();
     }
 
     public function logout()

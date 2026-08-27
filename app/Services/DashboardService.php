@@ -37,6 +37,29 @@ class DashboardService
     }
 
     /**
+     * Continue a specific conversation (or start a new one if id is null) with the mental health agent.
+     */
+    public function promptInConversation(string $message, ?string $conversationId = null): string
+    {
+        $message = trim($message);
+
+        if ($message === '') {
+            return '';
+        }
+
+        $agent = new MentalHealthAgent;
+
+        if ($conversationId !== null) {
+            $agent->continue($conversationId, $this->user());
+        } else {
+            // Start a fresh conversation instead of continuing the latest one.
+            $agent->forParticipant($this->user());
+        }
+
+        return $agent->prompt($message, provider: Lab::Gemini)->text;
+    }
+
+    /**
      * Get the messages of the user's most recent conversation.
      *
      * @return array<int, array{from: string, text: string}>
@@ -54,6 +77,16 @@ class DashboardService
             return [];
         }
 
+        return $this->messagesForConversation($conversationId);
+    }
+
+    /**
+     * Get the messages for a specific conversation.
+     *
+     * @return array<int, array{from: string, text: string}>
+     */
+    public function messagesForConversation(string $conversationId): array
+    {
         return resolve(ConversationStore::class)
             ->getLatestConversationMessages($conversationId, self::RECENT_MESSAGE_LIMIT)
             ->filter(fn (Message $message): bool => in_array($message->role, [MessageRole::User, MessageRole::Assistant], true))
@@ -63,6 +96,19 @@ class DashboardService
             ])
             ->values()
             ->all();
+    }
+
+    /**
+     * Get the latest conversation id for the authenticated user.
+     */
+    public function latestConversationId(): ?string
+    {
+        $user = $this->user();
+
+        return resolve(ConversationStore::class)->latestConversationId(
+            Conversation::participantType($user),
+            Conversation::participantKey($user),
+        );
     }
 
     /**

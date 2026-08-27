@@ -56,6 +56,7 @@
                 </span>
                 <input
                     type="text"
+                    wire:model.live.debounce.300ms="search"
                     placeholder="Search chats"
                     class="block w-full rounded-lg border-gray-200 bg-white py-2 ps-9 pe-3 text-sm text-gray-800 placeholder:text-gray-400 focus:border-cyan-600 focus:ring-cyan-600 disabled:pointer-events-none disabled:opacity-50 dark:border-gray-700 dark:bg-gray-900/40 dark:text-white dark:placeholder:text-gray-500 dark:focus:border-cyan-500 dark:focus:ring-cyan-500"
                 />
@@ -63,8 +64,36 @@
         </div>
 
         {{-- Chat history --}}
-        <nav class="mt-4 flex-1 overflow-y-auto px-4 pb-4">
-            <p class="py-8 text-center text-xs text-gray-400 dark:text-gray-500">No conversations yet</p>
+        <nav class="mt-4 flex-1 overflow-y-auto px-2 pb-4">
+            @if ($this->conversations->isEmpty())
+                <p class="py-8 text-center text-xs text-gray-400 dark:text-gray-500">
+                    {{ trim($search) !== '' ? 'No matching conversations' : 'No conversations yet' }}
+                </p>
+            @else
+                <ul class="space-y-1">
+                    @foreach ($this->conversations as $conversation)
+                        <li wire:key="conversation-{{ $conversation->id }}">
+                            <button
+                                type="button"
+                                wire:click="selectConversation('{{ $conversation->id }}')"
+                                class="flex w-full flex-col gap-y-1 rounded-lg px-3 py-2.5 text-left transition-colors focus:outline-hidden {{ $activeConversationId === $conversation->id ? 'bg-white shadow-sm ring-1 ring-gray-200 dark:bg-gray-700 dark:ring-gray-600' : 'hover:bg-white hover:shadow-sm dark:hover:bg-gray-700/60' }}"
+                            >
+                                <span class="flex w-full items-center justify-between gap-x-2">
+                                    <span class="truncate text-sm font-medium leading-none {{ $activeConversationId === $conversation->id ? 'text-gray-900 dark:text-white' : 'text-gray-800 dark:text-gray-200' }}">
+                                        {{ \Illuminate\Support\Str::limit($conversation->title ?: 'New conversation', 36) }}
+                                    </span>
+                                    @if ($activeConversationId === $conversation->id)
+                                        <span class="size-2 shrink-0 rounded-full bg-cyan-600 dark:bg-cyan-500"></span>
+                                    @endif
+                                </span>
+                                <span class="truncate text-xs {{ $activeConversationId === $conversation->id ? 'text-gray-500 dark:text-gray-400' : 'text-gray-400 dark:text-gray-500' }}">
+                                    {{ $conversation->updated_at->diffForHumans(null, true, true) }}
+                                </span>
+                            </button>
+                        </li>
+                    @endforeach
+                </ul>
+            @endif
         </nav>
 
         {{-- User --}}
