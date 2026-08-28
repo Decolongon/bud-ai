@@ -16,11 +16,6 @@ Free to start · No credit card required · Private by design
 ![Bud Chat Dashboard](public/screenshots/dashboard.png)
 *Authenticated dashboard — empathetic AI chat. Example: "im a little bit down today" → supportive response from Bud.*
 
-> **Note:** Save the two screenshots you provided as:
-> - `screenshots/landing.png` — Image 1 (Welcome - Bud, `bud-menthal-health-assistance.test`)
-> - `screenshots/dashboard.png` — Image 2 (`/dashboard` chat view)
->
-> Once added, they will render automatically on GitHub.
 
 ## Features
 
