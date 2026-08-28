@@ -37,7 +37,7 @@
                     <x-slot:aside>
                         <a
                             class="mb-2 text-sm font-medium text-cyan-600 decoration-2 hover:underline focus:underline focus:outline-hidden dark:text-cyan-500"
-                            href="#"
+                            href="{{ route('password.request') }}"
                         >
                             Forgot password?
                         </a>
