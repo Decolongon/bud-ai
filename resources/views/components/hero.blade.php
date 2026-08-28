@@ -14,7 +14,7 @@
             href="{{ route('register') }}"
             class="w-full rounded-lg border border-transparent bg-cyan-600 px-6 py-3 text-sm font-medium text-white hover:bg-cyan-700 focus:bg-cyan-700 focus:outline-hidden sm:w-auto dark:bg-cyan-500 dark:hover:bg-cyan-600"
         >
-            Start for free
+            Get Started
         </a>
         <a
             href="#how-it-works"

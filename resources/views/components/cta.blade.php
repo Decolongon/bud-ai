@@ -8,7 +8,7 @@
             href="{{ route('register') }}"
             class="mt-8 inline-block rounded-lg bg-white px-8 py-3 text-sm font-semibold text-cyan-700 shadow-sm hover:bg-gray-50"
         >
-            Get started free
+            Get started
         </a>
     @else
         <a
