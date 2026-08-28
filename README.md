@@ -1,27 +1,89 @@
-# Laravel + Livewire Starter Kit
+# Bud — Mental Health Assistance
 
-## Introduction
+> Your mental health companion. Feel better, one small step at a time.
 
-Our Laravel + [Livewire](https://livewire.laravel.com) starter kit provides a robust, modern starting point for building Laravel applications with a Livewire frontend.
+Bud helps you track your mood, reflect through guided journaling, and find calm with simple daily practices — all in one safe space.
 
-Livewire is a powerful way of building dynamic, reactive, frontend UIs using just PHP. It's a great fit for teams that primarily use Blade templates and are looking for a simpler alternative to JavaScript-driven SPA frameworks like React and Vue.
+Free to start · No credit card required · Private by design
 
-This Livewire starter kit utilizes Livewire 4, and Tailwind, but **does not include any authentication scaffolding**.
+## Screenshots
 
-## Official Documentation
+### Landing Page
+![Bud Landing Page](public/screenshots/welcome.png)
+*Welcome / landing page — hero section with "Feel better, one small step at a time"*
 
-Documentation for all Laravel starter kits can be found on the [Laravel website](https://laravel.com/docs/starter-kits).
+### Bud Chat — Dashboard
+![Bud Chat Dashboard](public/screenshots/dashboard.png)
+*Authenticated dashboard — empathetic AI chat. Example: "im a little bit down today" → supportive response from Bud.*
 
-## Contributing
+> **Note:** Save the two screenshots you provided as:
+> - `screenshots/landing.png` — Image 1 (Welcome - Bud, `bud-menthal-health-assistance.test`)
+> - `screenshots/dashboard.png` — Image 2 (`/dashboard` chat view)
+>
+> Once added, they will render automatically on GitHub.
 
-Thank you for considering contributing to our starter kit! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+## Features
 
-All contributions to the Starter Kits from now on should be made through [Maestro](https://github.com/laravel/maestro).
+- **Mood Tracking** — daily check-ins and history
+- **Guided Journaling** — reflective prompts powered by AI (Laravel AI / Gemini)
+- **Bud Chat** — empathetic conversational support, not medical advice
+- **Private by design** — conversations scoped per user via `Laravel\Ai\Models\Conversation`
+- **Livewire 4 + Tailwind** — reactive UI without a JS SPA
 
-## Code of Conduct
+## How It Works
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+1. Sign in and start a new chat from the sidebar (`+ New chat`)
+2. Share how you're feeling — Bud responds with supportive, non-clinical guidance
+3. Search and revisit past chats ("Feeling a Little Down") — stored via `DashboardService` + `ConversationStore`
+
+## Tech Stack
+
+- **PHP 8.4 / Laravel 13.26.1**
+- **Livewire 4**
+- **Laravel AI** (`laravel/ai`) — `Gemini` as default provider (`config/ai.php:16`, `app/Services/DashboardService.php:35,59`)
+- **Tailwind CSS + Vite**
+- **MySQL / Cache / Session** — database-backed
+
+## Getting Started
+
+```bash
+cp .env.example .env
+composer install
+npm install
+php artisan key:generate
+php artisan migrate
+npm run build # or npm run dev
+php artisan serve
+# App served via Laravel Herd at http://bud-menthal-health-assistance.test
+```
+
+Set your AI key in `.env`:
+
+```env
+GEMINI_API_KEY=your_key_here
+# optional failover providers
+# ANTHROPIC_API_KEY=
+# OPENAI_API_KEY=
+```
+
+> If Gemini is overloaded (503 `ProviderOverloadedException`), configure failover or retry in `app/Services/DashboardService.php` — free-tier Gemini is rate-limited and more prone to 503s during spikes.
+
+## Project Structure
+
+- `app/Services/DashboardService.php` — chat orchestration via `MentalHealthAgent`
+- `app/Ai/Agents/MentalHealthAgent.php` — agent prompt & instructions
+- `app/Livewire/Dashboard.php` — Livewire component for `/dashboard`
+- `resources/views/` — Blade + Livewire views
+- `config/ai.php` — provider configuration
+
+## Disclaimer
+
+Bud offers support, not medical advice. In crisis, contact your local emergency number.
 
 ## License
 
-The Laravel + Livewire starter kit is open-sourced software licensed under the MIT license.
+MIT — see original Laravel Starter Kit license.
+
+## Contributing
+
+Contributions via [Maestro](https://github.com/laravel/maestro) per Laravel Starter Kit guidelines.
